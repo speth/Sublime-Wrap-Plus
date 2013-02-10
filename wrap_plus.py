@@ -88,8 +88,9 @@ class PrefixStrippingView(object):
             if first_star_prefix:
                 self.required_comment_prefix = first_star_prefix
             # Narrow the scope.
-            self.min = max(self.min, self.view.line(scope_r.begin()).begin())
-            self.max = min(self.max, self.view.line(scope_r.end()).end())
+            if first_star_prefix is not None:
+                self.min = max(self.min, self.view.line(scope_r.begin()).begin())
+                self.max = min(self.max, self.view.line(scope_r.end()).end())
 
         # print 'required_comment_prefix determined to be %r' % (self.required_comment_prefix,)
 
