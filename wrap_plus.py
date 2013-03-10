@@ -392,6 +392,10 @@ class WrapLinesPlusCommand(sublime_plugin.TextCommand):
         # return the same value regardless of location for the stuff I've
         # tried.
         (self._lc, self._bc) = comment.build_comment_data(self.view, 0)
+        if (u'//', False) in self._lc:
+            # Doxygen-style comment blocks
+            self._lc = [('/// ', False), ('///', False),
+                        ('//! ', False), ('//!', False)] + self._lc
 
     def _width_in_spaces(self, text):
         tab_count = text.count('\t')
